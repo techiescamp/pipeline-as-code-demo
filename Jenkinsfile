@@ -50,11 +50,31 @@ pipeline {
             }
         }
 
-        stage('Priting All Global Variables') {
-            steps {
-                sh """
-                env
-                """
+        stage('Environment Analysis') {
+
+            parallel {
+
+                stage('Priting All Global Variables') {
+                    steps {
+                        sh """
+                        env
+                        """
+                    }
+                }
+
+                stage('Execute Shell') {
+                    steps {
+                        sh 'echo "Hello"'
+                    }
+                }
+
+                stage('Print ENV variable') {
+                    steps {
+                        sh "echo ${APP_ENV}"
+                    }
+                }
+
+            
             }
         }
 
